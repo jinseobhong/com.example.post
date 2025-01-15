@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 읽기</title>
+    <!-- Bootstrap CSS 추가 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<!-- 네비게이션 바 -->
+<div th:replace="~{/navigator:: navi}"></div>
+
+<div class="container my-5">
+    <h2>게시글 읽기</h2>
+
+    <!-- 게시글 상세 내용 -->
+    <div class="card">
+        <div class="card-header">
+            <!-- 게시글 제목 -->
+            <h3 th:text="${post.get().title}">제목</h3>
+        </div>
+        <div class="card-body">
+            <!-- 게시글 내용 -->
+            <p th:text="${post.get().content}">내용</p>
+        </div>
+        <div class="card-footer text-muted">
+            <!-- 게시글 작성자, 조회수, 등록일 -->
+            <p>작성자 : <span th:text="${post.get().userName}"></span></p>
+            <p>조회수 : <span th:text="${post.get().countViews}"></span></p>
+            <p>Created At : <span th:text="${#temporals.format(post.get().createdAt,'yyyy-MM-dd HH:mm:ss')}"></span></p>
+            <p>Updated At : <span th:text="${#temporals.format(post.get().updatedAt,'yyyy-MM-dd HH:mm:ss')}"></span></p>
+        </div>
+    </div>
+
+    <!-- 게시글 삭제 폼 -->
+    <div class=" mt-4">
+        <h4>게시글 삭제</h4>
+        <form th:action="@{/post/delete/{id}(id=${post.get().id})}" method="post">
+            <div class="mb-3">
+                <label for="password" class="form-label">비밀번호</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-danger">삭제하기</button>
+        </form>
+    </div>
+
+    <!-- 뒤로 가기 버튼 -->
+    <a href="/post/select/all" class="btn btn-secondary mt-3">목록으로 돌아가기</a>
+</div>
+
+<!-- Bootstrap JS 및 의존성 스크립트 추가 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
