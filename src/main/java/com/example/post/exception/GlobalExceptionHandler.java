@@ -14,14 +14,7 @@ public class GlobalExceptionHandler {
         populateErrorModel(model, ex.getTitle(), ex.getMessage(), ex.getNotificationMessage());
         return "error/index"; // resources/templates/error/index.html로 이동
     }
-
-    // PostNotFoundException 처리
-    @ExceptionHandler(PostNotFoundException.class)
-    public String handlePostNotFoundException(PostNotFoundException ex, Model model) {
-        populateErrorModel(model, ex.getTitle(), ex.getMessage(), ex.getNotificationMessage());
-        return "error/index"; // resources/templates/error/index.html로 이동
-    }
-
+    
     // IllegalArgumentException 처리
     @ExceptionHandler(IllegalArgumentException.class)
     public String handleIllegalArgumentException(IllegalArgumentException ex, Model model) {

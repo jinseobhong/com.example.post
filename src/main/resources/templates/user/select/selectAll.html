@@ -27,9 +27,8 @@
             <td>
                 <a class="text-decoration-none"
                    th:href="@{/user/select/{id}(id=${user.id})}"
-                   th:text="${user.name}"></a>
+                   th:text="${user.userName}"></a>
             </td>
-            <td th:text="${user.email}"></td>
         </tr>
         </tbody>
     </table>

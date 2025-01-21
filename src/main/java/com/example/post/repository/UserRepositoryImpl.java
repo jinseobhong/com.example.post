@@ -21,9 +21,17 @@ public class UserRepositoryImpl implements UserRepository {
         users.put(user.getId(), user);
     }
 
-    public Optional<User> selectUser(Long id) {
+    @Override
+    public Optional<User> selectById(Long id) {
         // Check if the user exists in the users map and return it wrapped in an Optional
         return Optional.ofNullable(users.get(id));
+    }
+
+    @Override
+    public Optional<User> selectByUserName(String userName) {
+        // users의 values()를 순회하며 userName을 가진 User 객체를 찾음
+        return users.values().stream().filter(user -> userName.equals(user.getUserName())) // userName 일치 여부 확인
+                .findFirst(); // 필터링된 첫 번째 User를 Optional로 반환
     }
 
     @Override

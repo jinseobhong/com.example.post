@@ -8,7 +8,9 @@ import java.util.Optional;
 public interface UserRepository {
     void create(User user);
 
-    public Optional<User> selectUser(Long id);
-    
+    Optional<User> selectById(Long id);
+
+    Optional<User> selectByUserName(String userName);
+
     List<User> selectAll();
 }
