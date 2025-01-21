@@ -48,7 +48,7 @@ public class UserController {
         if (session.getAttribute("user") != null) {
             return "redirect:/";
         }
-        return "user/session/login";
+        return "user/session/create";
     }
 
     @PostMapping("/session/create")
