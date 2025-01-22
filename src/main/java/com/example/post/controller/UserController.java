@@ -53,11 +53,12 @@ public class UserController {
 
     @PostMapping("/session/create")
     public String createSessionUser(@ModelAttribute User user, HttpSession session) {
-        if (session.getAttribute("user") != null)
+        if (session.getAttribute("user") == null) {
             if (userService.authenticate(user.getUserName(), user.getPassword())) {
                 session.setAttribute("user", user);
                 return "redirect:/";
             }
+        }
         return "redirect:/user/session/create";
     }
 
