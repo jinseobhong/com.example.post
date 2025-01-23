@@ -42,7 +42,7 @@
     </div>
 
     <!-- 로그인 사용자와 작성자가 같은 경우에만 수정, 삭제 버튼이 보여야 한다. -->
-    <th:block th:if="${session.user != null and session.id == post.get().user.id}">
+    <th:block th:if="${session.user != null and session.user.getUserName() == post.get().user.getUserName()}">
         <button class="btn btn-danger" th:onclick="|confirmDelete(${post.get().id})|" type="button">삭제하기</button>
     </th:block>
 

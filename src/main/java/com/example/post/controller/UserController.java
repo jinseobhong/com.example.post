@@ -31,7 +31,7 @@ public class UserController {
     @GetMapping("/select/{id}")
     public String showSelectUser(@PathVariable(name = "id") Long id, Model model) {
         // 서비스에서 사용자 조회
-        Optional<User> user = userService.selectByUId(id);
+        Optional<User> user = userService.findById(id);
         // 모델에 사용자 정보 추가
         model.addAttribute("user", user);
         return "user/select/selectById"; // user/select/selectById.html
@@ -39,7 +39,7 @@ public class UserController {
 
     @GetMapping("/select/all")
     public String showSelectAllUser(Model model) {
-        model.addAttribute("users", userService.selectAllUsers());
+        model.addAttribute("users", userService.findAll());
         return "user/select/selectAll"; // user/select/selectAll.html
     }
 

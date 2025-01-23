@@ -4,17 +4,17 @@ import com.example.post.exception.PostNotFoundException;
 import com.example.post.model.Post;
 import com.example.post.model.User;
 import com.example.post.repository.PostRepository;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-@Getter
-@Setter
+@Transactional(readOnly = true) // 읽기 전용으로 가져온다. 실제 커밋/롤백이 필요한 것에는 @Transactional을 붙임
+@RequiredArgsConstructor // 의존성 주입(DI, Dependency Injection) - 생성자 주입 코드 생성
 @Service
 public class PostServiceImpl implements PostService {
 
@@ -22,31 +22,34 @@ public class PostServiceImpl implements PostService {
     private PostRepository postRepository;
 
     @Override
-    public void createPost(Post post, User user) {
+    @Transactional
+    public void savePost(Post post, User user) {
         post.setUser(user);
         post.setCreatedAt(LocalDateTime.now());
         post.setUpdatedAt(LocalDateTime.now());
-        postRepository.create(post);
+        postRepository.save(post);
     }
 
     @Override
-    public Optional<Post> selectPost(Long id) {
-        return Optional.ofNullable(postRepository.select(id).orElseThrow(() -> new PostNotFoundException("글을 찾을 수 없습니다.", "유효한 ID를 가진 Post를 찾을 수 없습니다.", "유효한 ID를 가진 글을 입력 해주십시오.")));
+    public Optional<Post> findById(Long id) {
+        return Optional.ofNullable(postRepository.findById(id).orElseThrow(() -> new PostNotFoundException("글을 찾을 수 없습니다.", "유효한 ID를 가진 Post를 찾을 수 없습니다.", "유효한 ID를 가진 글을 입력 해주십시오.")));
     }
 
     @Override
-    public void updatePost(Post post) {
+    @Transactional
+    public void update(Post post) {
         post.setUpdatedAt(LocalDateTime.now());
-        postRepository.update(post);
+        postRepository.save(post);
     }
 
     @Override
-    public void deletePost(Long id) {
-        postRepository.delete(id);
+    @Transactional
+    public void delete(Long id) {
+        postRepository.deleteById(id);
     }
 
     @Override
-    public List<Post> selectAllPost() {
-        return postRepository.selectAll();
+    public List<Post> findAll() {
+        return postRepository.findAll();
     }
 }

@@ -7,13 +7,13 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PostService {
-    void createPost(Post post, User user);
+    void savePost(Post post, User user);
 
-    Optional<Post> selectPost(Long id);
+    Optional<Post> findById(Long id);
 
-    void updatePost(Post post);
+    void update(Post post);
 
-    void deletePost(Long id);
+    void delete(Long id);
 
-    List<Post> selectAllPost();
+    List<Post> findAll();
 }

@@ -8,15 +8,15 @@ import java.util.Optional;
 public interface UserService {
     void createUser(User user);
 
-    Optional<User> selectByUId(Long id);
+    Optional<User> findById(Long id);
 
-    Optional<User> selectByUserName(String userName);
+    Optional<User> findByUserName(String userName);
 
-    void updateUser(User user);
+    void update(User user);
 
-    void deleteUser(Long id, String password);
+    void delete(Long id, String password);
 
-    List<User> selectAllUsers();
+    List<User> findAll();
 
     Boolean authenticate(String userName, String rawPassword);
 }

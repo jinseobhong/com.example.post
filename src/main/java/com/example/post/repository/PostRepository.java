@@ -1,19 +1,10 @@
 package com.example.post.repository;
 
 import com.example.post.model.Post;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.Optional;
+@Repository
+public interface PostRepository extends JpaRepository<Post, Long> {
 
-public interface PostRepository {
-
-    void create(Post post);
-
-    Optional<Post> select(Long id);
-
-    void update(Post post);
-
-    void delete(Long id);
-
-    List<Post> selectAll();
 }
